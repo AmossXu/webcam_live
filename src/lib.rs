@@ -7,6 +7,7 @@ use web_sys::{HtmlVideoElement, MediaStream, MediaStreamConstraints};
 pub struct VideoStream {
     el: HtmlVideoElement,
 }
+
 impl VideoStream {
     pub fn new(el: HtmlVideoElement) -> VideoStream {
         VideoStream { el }
@@ -31,6 +32,7 @@ impl VideoStream {
         .unwrap();
         // 转jsvalue到其他的数据结构 一个是unchecked into 一个dyn into
         let media_stream = media.unchecked_into::<MediaStream>();
-        info!("media_stream (tracing_wasm): {:?}", media_stream)
+        info!("media_stream (tracing_wasm): {:?}", media_stream);
+        self.el.set_src_object(Some(&media_stream));
     }
 }
