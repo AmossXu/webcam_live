@@ -1,7 +1,8 @@
-use crate::VideoStream;
+use crate::{VideoStream, Devices};
 use serde_json::json;
 use sycamore::futures::ScopeSpawnLocal;
 use sycamore::{prelude::*, view};
+use tracing::info;
 
 #[component]
 pub fn Video<G: Html>(ctx: ScopeRef) -> View<G> {
@@ -20,6 +21,9 @@ pub fn Video<G: Html>(ctx: ScopeRef) -> View<G> {
                 }
             }))
             .await;
+
+            let devices = Devices::load().await;
+            info!("divices: {:?}", devices);
     });
     view!(ctx, div {
         video(
